@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Sales Charts';
 
-include './../includes/header.php'
+include './../includes/header.php';
 ?>
 
 <div class="chartCard">
