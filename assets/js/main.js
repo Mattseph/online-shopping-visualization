@@ -16,13 +16,15 @@ d3.csv(chartData).then(function (datapoints) {
         if (!monthlyTotals[month]) {
             monthlyTotals[month] = {
                 offlineSpend: 0,
-                onlineSpend: 0
+                onlineSpend: 0,
+                totalTransactions: 0,
             };
         }
 
         // Add the values to the monthly totals
         monthlyTotals[month].offlineSpend += parseFloat(datapoints[i].Offline_Spend);
         monthlyTotals[month].onlineSpend += parseFloat(datapoints[i].Online_Spend);
+        monthlyTotals[month].totalTransactions += 1;
 
 
         // BAR CHART
@@ -44,7 +46,7 @@ d3.csv(chartData).then(function (datapoints) {
         locationTotals[location].offlineSpend += offlineSpend;
     }
 
-    // LINE CHART - Extract the labels and aggregated values from the object, ordered by month
+    // LINE CHART
     const labels = monthOrder.filter(month => monthlyTotals[month]);
     const offlineSpendData = labels.map(month => monthlyTotals[month].offlineSpend);
     const onlineSpendData = labels.map(month => monthlyTotals[month].onlineSpend);
@@ -54,8 +56,11 @@ d3.csv(chartData).then(function (datapoints) {
     const onlineSpends = locations.map(location => locationTotals[location].onlineSpend);
     const offlineSpends = locations.map(location => locationTotals[location].offlineSpend);
 
+    // LINE CHART TOTAL TRANSCATION EVERY MONTH
+    const totalTransactionsData = labels.map(month => monthlyTotals[month].totalTransactions);
 
-    // LINE CHART
+
+    // LINE CHART TOTAL SPEND
     const dataLine = {
         labels: labels,
         datasets: [{
@@ -68,13 +73,12 @@ d3.csv(chartData).then(function (datapoints) {
         {
             label: 'Online Spend Sales',
             data: onlineSpendData,
-            backgroundColor: '#1d3c45',
-            borderColor: '#1d3c45',
+            backgroundColor: '#d2601a',
+            borderColor: '#d2601a',
             borderWidth: 1
         }]
     };
 
-    // Config for the line chart
     const configLine = {
         type: 'line',
         data: dataLine,
@@ -88,14 +92,13 @@ d3.csv(chartData).then(function (datapoints) {
         }
     };
 
-    // Render the line chart
-    const myChartLine = new Chart(
-        document.getElementById('myChartLine'),
+    const ChartLine = new Chart(
+        document.getElementById('ChartLine'),
         configLine
     );
 
 
-    // BAR CHART configuration
+    // BAR CHART TOTAL SPEND EVERY COUNTRY
     const dataBar = {
         labels: locations,
         datasets: [{
@@ -127,13 +130,12 @@ d3.csv(chartData).then(function (datapoints) {
         }
     };
 
-    // Render the bar chart
-    const myChartBar = new Chart(
-        document.getElementById('myChartBar'),
+    const ChartBar = new Chart(
+        document.getElementById('ChartBar'),
         configBar
     );
 
-    // DOUGHNUT CHART
+    // DOUGHNUT CHART COUPON PERCENTAGE
     const couponLabels = ['Clicked', 'Used', 'Not Used'];
     const couponData = couponLabels.map(status => {
         const count = datapoints.filter(item => item["Coupon_Status"] === status).length;
@@ -153,7 +155,6 @@ d3.csv(chartData).then(function (datapoints) {
         }]
     };
 
-    // Doughnut chart config
     const configDoughnut = {
         type: 'doughnut',
         data: dataDoughnut,
@@ -176,10 +177,40 @@ d3.csv(chartData).then(function (datapoints) {
         }
     };
 
-    // Render the doughnut chart
-    const myChartDoughnut = new Chart(
-        document.getElementById('myChartDoughnut'),
+    
+    const ChartDoughnut = new Chart(
+        document.getElementById('ChartDoughnut'),
         configDoughnut
+    );
+
+     // LINE CHART TOTAL TRANSACTION
+     const dataTransaction = {
+        labels: labels,
+        datasets: [{
+            label: 'Total Transactions',
+            data: totalTransactionsData,
+            backgroundColor: '#d2601a',
+            borderColor: '#d2601a',
+            borderWidth: 1,
+        }]
+    };
+
+    const configTransaction = {
+        type: 'line',
+        data: dataTransaction,
+        options: {
+            aspectRatio: 1,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const ChartTransaction = new Chart(
+        document.getElementById('ChartTransaction'),
+        configTransaction
     );
 });
 
