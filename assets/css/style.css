@@ -211,6 +211,7 @@ body{
     width: 100%;
     height: 500px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -218,6 +219,17 @@ body{
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     background: white;
 }
+
+/* .cardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+} */
+.chartBox h2{
+    font-weight: 500;
+    color: var(--darkgreen);
+}
+
 .chartBoxContainer {
     width: 100%;
     padding: 20px;
@@ -260,6 +272,7 @@ body{
 .cardBox .card:hover .iconBx{
     color: var(--white);
 }
+
 /* details list */
 /* .details{
     position: relative;
@@ -281,15 +294,6 @@ body{
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
-}
-.cardHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-.cardHeader h2{
-    font-weight: 600;
-    color: var(--darkgreen);
 }
 .btn{
     position: relative;
