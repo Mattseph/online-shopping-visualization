@@ -55,39 +55,61 @@ d3.csv(chartData).then(function (datapoints) {
     const offlineSpends = locations.map(location => locationTotals[location].offlineSpend);
 
 
+    // LINE CHART
     const dataLine = {
         labels: labels,
         datasets: [{
             label: 'Offline Spend Sales',
             data: offlineSpendData,
-            backgroundColor: 'rgba(255, 26, 104, 0.2)',
-            borderColor: 'rgba(255, 26, 104, 1)',
+            backgroundColor: '#1d3c45',
+            borderColor: '#1d3c45',
             borderWidth: 1
         },
         {
             label: 'Online Spend Sales',
             data: onlineSpendData,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: '#1d3c45',
+            borderColor: '#1d3c45',
             borderWidth: 1
         }]
     };
 
-    // Chart configuration
+    // Config for the line chart
+    const configLine = {
+        type: 'line',
+        data: dataLine,
+        options: {
+            aspectRatio: 1,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    // Render the line chart
+    const myChartLine = new Chart(
+        document.getElementById('myChartLine'),
+        configLine
+    );
+
+
+    // BAR CHART configuration
     const dataBar = {
         labels: locations,
         datasets: [{
             label: 'Online Spend',
             data: onlineSpends,
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: '#1d3c45',
+            borderColor: '#1d3c45',
             borderWidth: 1
         },
         {
             label: 'Offline Spend',
             data: offlineSpends,
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: '#d2601a',
+            borderColor: '#d2601a',
             borderWidth: 1
         }]
     };
@@ -111,26 +133,6 @@ d3.csv(chartData).then(function (datapoints) {
         configBar
     );
 
-    // Config for the line chart
-    const configLine = {
-        type: 'line',
-        data: dataLine,
-        options: {
-            aspectRatio: 1,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    // Render the line chart
-    const myChartLine = new Chart(
-        document.getElementById('myChartLine'),
-        configLine
-    );
-
     // DOUGHNUT CHART
     const couponLabels = ['Clicked', 'Used', 'Not Used'];
     const couponData = couponLabels.map(status => {
@@ -139,7 +141,7 @@ d3.csv(chartData).then(function (datapoints) {
         return percentage.toFixed(2);
     });
 
-    const backgroundColors = ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)'];
+    const backgroundColors = ['#1d3c45', '#d2601a', '#fff1e1'];
 
     // Doughnut chart data
     const dataDoughnut = {
@@ -182,74 +184,23 @@ d3.csv(chartData).then(function (datapoints) {
 });
 
 
+// menu toggle
+const toggle = document.querySelector(".toggle");
+const navigation = document.querySelector(".navigation");
+const main = document.querySelector(".main");
+
+toggle.onclick = function(){
+    navigation.classList.toggle("active")
+    main.classList.toggle("active")
+}
 
 
-        // setup 
-        // const data = {
-        //     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        //     datasets: [{
-        //         label: 'Weekly Sales',
-        //         data: [18, 12, 6, 9, 12, 3, 9],
-        //         backgroundColor: [
-        //             'rgba(255, 26, 104, 0.2)',
-        //             'rgba(54, 162, 235, 0.2)',
-        //             'rgba(255, 206, 86, 0.2)',
-        //             'rgba(75, 192, 192, 0.2)',
-        //             'rgba(153, 102, 255, 0.2)',
-        //             'rgba(255, 159, 64, 0.2)',
-        //             'rgba(0, 0, 0, 0.2)'
-        //         ],
-        //         borderColor: [
-        //             'rgba(255, 26, 104, 1)',
-        //             'rgba(54, 162, 235, 1)',
-        //             'rgba(255, 206, 86, 1)',
-        //             'rgba(75, 192, 192, 1)',
-        //             'rgba(153, 102, 255, 1)',
-        //             'rgba(255, 159, 64, 1)',
-        //             'rgba(0, 0, 0, 1)'
-        //         ],
-        //         borderWidth: 1
-        //     }]
-        // };
-
-        // // config 
-        // const config = {
-        //     type: 'bar',
-        //     data,
-        //     options: {
-        //         aspectRatio: 1,
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // };
-
-        // // render init block
-        // const myChart = new Chart(
-        //     document.getElementById('myChart'),
-        //     config
-        // );
-        
-
-        // menu toggle
-        const toggle = document.querySelector(".toggle");
-        const navigation = document.querySelector(".navigation");
-        const main = document.querySelector(".main");
-
-        toggle.onclick = function(){
-            navigation.classList.toggle("active")
-            main.classList.toggle("active")
-        }
-
-
-        // add hovered class in selected list item
-        const list = document.querySelectorAll(".navigation li");
-        function activeLink(){
-            list.forEach((item) =>
-            item.classList.remove("hovered"));
-            this.classList.add("hovered");
-        }
-        list.forEach((item) =>
-        item.addEventListener("mouseover",activeLink));
+// add hovered class in selected list item
+const list = document.querySelectorAll(".navigation li");
+function activeLink(){
+    list.forEach((item) =>
+    item.classList.remove("hovered"));
+    this.classList.add("hovered");
+}
+list.forEach((item) =>
+item.addEventListener("mouseover",activeLink));
