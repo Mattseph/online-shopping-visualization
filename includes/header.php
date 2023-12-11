@@ -31,6 +31,13 @@
                         <span class="title">Sales Chart</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="./prediction-chart.php">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">Prediction Chart</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
