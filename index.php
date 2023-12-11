@@ -31,6 +31,13 @@
                         <span class="title">Sales Chart</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="./data-visualization/prediction-chart.php">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">Prediction Chart</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -54,8 +61,8 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,562</div>
-                        <div class="cardName">Daily Veiws</div>
+                        <div class="numbers" id="average-transaction"></div>
+                        <div class="cardName">Average Transaction</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="eye-outline"></ion-icon>
@@ -92,9 +99,21 @@
 
             <div class="chartCard">
                 <div class="chartBox bar">
-                    <h2>Total Spend Every Country</h2>
+                    <h2>Total Spend Every City</h2>
 
-                    <canvas id="ChartBar"></canvas>
+                    <canvas id="cityChartBar"></canvas>
+                </div>
+
+                <div class="chartBox bar">
+                    <h2>Total Spend Every Category</h2>
+
+                    <canvas id="categoryChartBar"></canvas>
+                </div>
+
+                <div class="chartBox line">
+                    <h2>Total of Transaction Every Month</h2>
+
+                    <canvas id="ChartTransaction"></canvas>
                 </div>
 
                 <div class="chartBox doughnut">
@@ -103,10 +122,19 @@
                     <canvas id="ChartDoughnut"></canvas>
                 </div>
 
-                <div class="chartBox line">
-                    <h2>Total of Transaction Every Month</h2>
-                    <canvas id="ChartTransaction"></canvas>
+                <div class="chartBox pie">
+                    <h2>Customer Gender Percentage</h2>
+
+                    <canvas id="ChartPie"></canvas>
                 </div>
+
+                <div class="chartBox pie">
+                    <h2>Title Here</h2>
+
+                    <canvas id="chartScatter"></canvas>
+                </div>
+
+
             </div>
 
         </div>
