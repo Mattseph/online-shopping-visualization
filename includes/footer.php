@@ -9,7 +9,7 @@
 <script>
     const chartData = './../assets/data/online-shopping-data.csv';
 </script>
-<script src="./.././assets/js/main.js"></script>
+<script src="./../assets/js/main.js"></script>
 </body>
 
 </html>
