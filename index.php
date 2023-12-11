@@ -92,11 +92,20 @@
 
             <div class="chartCard">
                 <div class="chartBox bar">
-                    <canvas id="myChartBar"></canvas>
+                    <h2>Total Spend Every Country</h2>
+
+                    <canvas id="ChartBar"></canvas>
                 </div>
 
                 <div class="chartBox doughnut">
-                    <canvas id="myChartDoughnut"></canvas>
+                    <h2>Coupon Percentage</h2>
+
+                    <canvas id="ChartDoughnut"></canvas>
+                </div>
+
+                <div class="chartBox line">
+                    <h2>Total of Transaction Every Month</h2>
+                    <canvas id="ChartTransaction"></canvas>
                 </div>
             </div>
 
