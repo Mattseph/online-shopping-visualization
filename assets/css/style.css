@@ -21,7 +21,7 @@ body{
 }
 .navigation{
     position: fixed;
-    width: 300px;
+    width: 250px;
     height: 100%;
     background-color: var(--darkgreen);
     border-left: 10px solid var(--darkgreen);
@@ -119,8 +119,8 @@ body{
 /* main */
 .main{
     position: absolute;
-    width: calc(100% - 300px);
-    left: 300px;
+    width: calc(100% - 250px);
+    left: 250px;
     min-height: 100%;
     background-color: var(--white);
     transition: 0.5s;
@@ -196,25 +196,28 @@ body{
     position: relative;
     width: 100%;
     padding: 20px;
-    display: grid;
     gap: 25px;
 }
 
 .cardBox {
+    display: grid;
     grid-template-columns: repeat(4,1fr);
 }
 .chartCard {
-    grid-template-columns: repeat(2,1fr);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 .chartBox {
-    width: 100%;
+    width: 48%;
     height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    gap: 10px;
+    padding: 30px;
     border-radius: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     background: white;
@@ -420,7 +423,7 @@ body{
     .main.active{
         left: 300px;
     }
-    .cardBox{
+    .cardBox, .chartCard{
         grid-template-columns: repeat(2,1fr);
     }
 
@@ -437,9 +440,10 @@ body{
     }
 }
 @media (max-width: 480px){
-    .cardBox{
+    .cardBox, .chartCard{
         grid-template-columns: repeat(1,1fr);
     }
+
     .cardHeader h2{
         font-size: 20px;
     }
