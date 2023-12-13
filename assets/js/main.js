@@ -1,27 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
     d3.csv(chartData).then(function (datapoints) {
 
+        generateLineChart(datapoints);
         // Calculate the number of transactions per day
-        const transactionsPerDay = d3.rollup(
-            datapoints,
-            v => v.length,
-            d => d3.timeDay(d.Transaction_Date)
-        );
-        
-        // Calculate the average transactions per day
-        const averageTransactionsPerDay = d3.mean(transactionsPerDay.values());
-        
-        // Update the content of an HTML element with the result
-        const averageTransactionsElement = document.getElementById('average-transaction');
-        averageTransactionsElement.innerText = averageTransactionsPerDay.toFixed(2); // Adjust the number of decimal places as needed
-
+        generateAverageTransactionsPerDay(datapoints);
         generateBarChart(datapoints);
-        generateLineChartTotalTransaction(datapoints);
         generatePieChart(datapoints);
         generateScatterPlot(datapoints);
         doughnutChartCouponPercentage(datapoints);
     });
 });
+
+function generateAverageTransactionsPerDay(datapoints) {
+    const transactionsPerDay = d3.rollup(
+        datapoints,
+        v => v.length,
+        d => d3.timeDay(d.Transaction_Date)
+    );
+    
+    // Calculate the average transactions per day
+    const averageTransactionsPerDay = d3.mean(transactionsPerDay.values()) ?? '';
+    
+    // Update the content of an HTML element with the result
+    const averageTransactionsElement = document.getElementById('average-transaction');
+    if (averageTransactionsElement && averageTransactionsPerDay) {
+        averageTransactionsElement.innerText = averageTransactionsPerDay.toFixed(2);
+    }
+
+}
 
 function generateBarChart(datapoints) {
     const locationTotals = {};
@@ -159,8 +165,8 @@ function generateBarChart(datapoints) {
     );
 }
 
-function generateLineChartTotalTransaction(datapoints) {
-    // LINE CHART TOTAL TRANSCATION EVERY MONTH
+function generateLineChart(datapoints) {
+    // LINE CHART TOTAL TRANSACTION EVERY MONTH
     const monthlyTotals = {};
 
     // Define the desired order of months
@@ -168,20 +174,26 @@ function generateLineChartTotalTransaction(datapoints) {
 
     // Iterate through the datapoints and aggregate the values for each month
     datapoints.forEach(dataPoint => {
-        const { Month } = dataPoint;
+        const { Month, Offline_Spend, Online_Spend } = dataPoint;
 
         // If the month is not in the object, create it
         if (!monthlyTotals[Month]) {
             monthlyTotals[Month] = {
+                offlineSpend: 0,
+                onlineSpend: 0,
                 totalTransactions: 0,
             };
         }
 
         // Add the values to the monthly totals
+        monthlyTotals[Month].offlineSpend += parseFloat(Offline_Spend);
+        monthlyTotals[Month].onlineSpend += parseFloat(Online_Spend);
         monthlyTotals[Month].totalTransactions += 1;
     });
 
-    const labels = monthOrder.filter(month => monthlyTotals[month]);
+    // Filter labels based on the monthOrder
+    const labels = monthOrder.filter(month => monthlyTotals[month] ? month : null);
+
     const totalTransactionsData = labels.map(month => monthlyTotals[month].totalTransactions);
 
     const dataTransaction = {
@@ -208,11 +220,53 @@ function generateLineChartTotalTransaction(datapoints) {
         }
     };
 
-    const ChartTransaction = new Chart(
-        document.getElementById('ChartTransaction'),
+    const chartTransaction = new Chart(
+        document.getElementById('chartTransaction'),
         configTransaction
     );
+
+    // LINE CHART TOTAL SPEND
+
+    const offlineSpendData = labels.map(month => monthlyTotals[month].offlineSpend);
+    const onlineSpendData = labels.map(month => monthlyTotals[month].onlineSpend);
+
+    const dataLine = {
+        labels: labels,
+        datasets: [{
+            label: 'Offline Spend Sales',
+            data: offlineSpendData,
+            backgroundColor: '#1d3c45',
+            borderColor: '#1d3c45',
+            borderWidth: 1
+        },
+        {
+            label: 'Online Spend Sales',
+            data: onlineSpendData,
+            backgroundColor: '#d2601a',
+            borderColor: '#d2601a',
+            borderWidth: 1
+        }]
+    };
+
+    const configLine = {
+        type: 'line',
+        data: dataLine,
+        options: {
+            aspectRatio: 1,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const chartLine = new Chart(
+        document.getElementById('chartLine'),
+        configLine
+    );
 }
+
 
 function generatePieChart(datapoints) {
     // PIE chart data
@@ -254,8 +308,8 @@ function generatePieChart(datapoints) {
         }
     };
 
-    const ChartPie = new Chart(
-        document.getElementById('ChartPie'),
+    const chartPie = new Chart(
+        document.getElementById('chartPie'),
         configPie
     );
 }
@@ -363,8 +417,8 @@ function doughnutChartCouponPercentage (datapoints) {
      };
 
      
-     const ChartDoughnut = new Chart(
-         document.getElementById('ChartDoughnut'),
+     const chartDoughnut = new Chart(
+         document.getElementById('chartDoughnut'),
          configDoughnut
      );
 }
