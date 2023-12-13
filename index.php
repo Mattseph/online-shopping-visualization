@@ -14,27 +14,35 @@
             <ul>
                 <li>
                     <a href="./">
-                        <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="logo-apple"></ion-icon>
+                        </span>
                         <span class="title">Online Shopping</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="./">
-                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="./data-visualization/sales-chart.php">
-                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
                         <span class="title">Sales Chart</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="./data-visualization/prediction-chart.php">
-                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
                         <span class="title">Prediction Chart</span>
                     </a>
                 </li>
@@ -45,7 +53,9 @@
         <div class="main">
             <div class="topbar">
 
-                <div class="toggle"><ion-icon name="menu-outline"></ion-icon></div>
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
 
                 <div class="search">
                     <label for="">
@@ -113,19 +123,19 @@
                 <div class="chartBox line">
                     <h2>Total of Transaction Every Month</h2>
 
-                    <canvas id="ChartTransaction"></canvas>
+                    <canvas id="chartTransaction"></canvas>
                 </div>
 
                 <div class="chartBox doughnut">
                     <h2>Coupon Percentage</h2>
 
-                    <canvas id="ChartDoughnut"></canvas>
+                    <canvas id="chartDoughnut"></canvas>
                 </div>
 
                 <div class="chartBox pie">
                     <h2>Customer Gender Percentage</h2>
 
-                    <canvas id="ChartPie"></canvas>
+                    <canvas id="chartPie"></canvas>
                 </div>
 
                 <div class="chartBox pie">
@@ -143,13 +153,15 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
+        integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const chartData = './assets/data/online-shopping-data.csv';
+    const chartData = './assets/data/online-shopping-data.csv';
     </script>
-    <script src="./assets/js/main.js"></script>
+    <script defer src="./assets/js/main.js"></script>
 </body>
 
 </html>
