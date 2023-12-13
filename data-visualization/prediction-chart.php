@@ -7,8 +7,8 @@ include './../includes/header.php';
 <div class="chartCard">
 
     <div class="chartBox line">
-        <h2>Total Spend Every Month</h2>
-        <canvas id="ChartLine"></canvas>
+        <h2>Predicted Total Spend Per Transacation in the next 24 months</h2>
+        <canvas id="clvChart"></canvas>
     </div>
 
 
