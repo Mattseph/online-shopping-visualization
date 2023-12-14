@@ -18,12 +18,14 @@ window.addEventListener('load', function () {
 });
 
 function generateAverageTransactionsPerDay(datapoints) {
+    // Use d3.timeParse to parse the date strings
+    const parseDate = d3.timeParse("%B %e, %Y");
 
     // Group transactions by day
     const transactionsPerDay = d3.rollup(
         datapoints,
         v => v.length,
-        d => d3.timeDay(d.Transaction_Date)
+        d => d3.timeDay(parseDate(d.Transaction_Date))
     );
 
     // Extract values to calculate the average
@@ -36,7 +38,7 @@ function generateAverageTransactionsPerDay(datapoints) {
     const totalTransactions = d3.sum(transactionCounts);
 
     // Calculate the average transactions per day
-    const averageTransactionsPerDay = totalTransactions / daysWithTransactions || 0;
+    const averageTransactionsPerDay = daysWithTransactions > 0 ? totalTransactions / daysWithTransactions : 0;
 
     // Update the content of an HTML element with the result (as an integer)
     const averageTransactionsElement = document.getElementById('average-transaction');
