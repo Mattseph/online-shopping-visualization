@@ -108,18 +108,18 @@
             </div>
 
             <div class="chartCard">
-                <div class="chartBox bar">
-                    <h2>Total Spend Every City</h2>
 
-                    <canvas id="cityChartBar"></canvas>
+                <div class="chartBox line">
+                    <h2>Total of Transaction Every Month</h2>
+
+                    <canvas id="chartTransaction"></canvas>
                 </div>
 
-                <div class="chartBox bar">
-                    <h2>Total Spend Every Category</h2>
+                <div class="chartBox scatter">
+                    <h2>Average Online Spend Behavior</h2>
 
-                    <canvas id="categoryChartBar"></canvas>
+                    <canvas id="chartScatter"></canvas>
                 </div>
-
 
                 <div class="chartBox doughnut">
                     <h2>Coupon Percentage</h2>
@@ -131,18 +131,6 @@
                     <h2>Customer Gender Percentage</h2>
 
                     <canvas id="chartPie"></canvas>
-                </div>
-
-                <div class="chartBox line">
-                    <h2>Total of Transaction Every Month</h2>
-
-                    <canvas id="chartTransaction"></canvas>
-                </div>
-
-                <div class="chartBox pie">
-                    <h2>Average Online Spend Behavior</h2>
-
-                    <canvas id="chartScatter"></canvas>
                 </div>
 
 
