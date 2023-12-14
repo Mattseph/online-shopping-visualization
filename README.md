@@ -16,70 +16,70 @@ Create Responsive Admin Dashboard using Html CSS &amp; Javascript | Simple Dashb
 1. ID <br>
 Description: The unique identifier of each record in the dataset <br>
 Data Type: Numeric <br>
-2. CustomerID
-Description: Unique identifier for each customer.
-Data Type: Numeric
-3. Gender
-Description: Gender of the customer (e.g., Male, Female).
-Data Type: Categorical
-4. Location
-Description: Location or address information of the customer.
-Data Type: Text
-5. Tenure_Months
+2. CustomerID <br>
+Description: Unique identifier for each customer. <br>
+Data Type: Numeric <br>
+3. Gender <br>
+Description: Gender of the customer (e.g., Male, Female). <br>
+Data Type: Categorical <br>
+4. Location <br>
+Description: Location or address information of the customer. <br>
+Data Type: Text <br>
+5. Tenure_Months <br>
 Description: Number of months the customer has been associated with the 
-platform.
-Data Type: Numeric
-6. Transaction_ID
-Description: Unique identifier for each transaction.
-Data Type: Numeric
-7. Transaction_Date
-Description: Date of the transaction.
-Data Type: Date
-8. Product_SKU
-Description: Stock Keeping Unit (SKU) identifier for the product.
-Data Type: Text
-9. Product_Description
-Description: Description of the product.
-Data Type: Text
-10. Product_Category
-Description: Category to which the product belongs.
-Data Type: Categorical
-11. Quantity
-Description: Quantity of the product purchased in the transaction.
-Data Type: Numeric
-12. Avg_Price
-Description: Average price of the product.
-Data Type: Numeric
-13. Delivery_Charges
-Description: Charges associated with the delivery of the product.
-Data Type: Numeric
-14. Coupon_Status
-Description: Status of the coupon associated with the transaction.
-Data Type: Categorical
-15. GST
-Description: Goods and Services Tax associated with the transaction.
-Data Type: Numeric
-16. Date
-Description: Date of the transaction (potentially redundant with Transaction_Date).
-Data Type: Date
-17. Offline_Spend
-Description: Amount spent offline by the customer.
-Data Type: Numeric
-18. Online_Spend
-Description: Amount spent online by the customer.
-Data Type: Numeric
-19. Numberic_Month
-Description: Month of the transaction in numeric value
-Data Type: Numeric
-20. Coupon_Code
-Description: Code associated with a coupon, if applicable.
-Data Type: Text
-21. Discount_pct
-Description: Percentage of discount applied to the transaction.
-Data Type: Numeric
-22. Month
-Description: Month of the transaction 
-Data Type: Categorical
+platform. <br>
+Data Type: Numeric <br>
+6. Transaction_ID <br>
+Description: Unique identifier for each transaction. <br>
+Data Type: Numeric <br>
+7. Transaction_Date <br>
+Description: Date of the transaction. <br>
+Data Type: Date <br>
+8. Product_SKU <br>
+Description: Stock Keeping Unit (SKU) identifier for the product. <br>
+Data Type: Text <br>
+9. Product_Description <br>
+Description: Description of the product. <br>
+Data Type: Text <br>
+10. Product_Category <br>
+Description: Category to which the product belongs. <br>
+Data Type: Categorical <br>
+11. Quantity <br>
+Description: Quantity of the product purchased in the transaction. <br>
+Data Type: Numeric <br>
+12. Avg_Price <br>
+Description: Average price of the product. <br>
+Data Type: Numeric <br>
+13. Delivery_Charges <br>
+Description: Charges associated with the delivery of the product. <br>
+Data Type: Numeric <br>
+14. Coupon_Status <br>
+Description: Status of the coupon associated with the transaction. <br>
+Data Type: Categorical <br>
+15. GST <br>
+Description: Goods and Services Tax associated with the transaction. <br>
+Data Type: Numeric <br>
+16. Date <br>
+Description: Date of the transaction (potentially redundant with Transaction_Date). <br>
+Data Type: Date <br>
+17. Offline_Spend <br>
+Description: Amount spent offline by the customer. <br>
+Data Type: Numeric <br>
+18. Online_Spend <br>
+Description: Amount spent online by the customer. <br>
+Data Type: Numeric <br>
+19. Numberic_Month <br>
+Description: Month of the transaction in numeric value <br>
+Data Type: Numeric <br>
+20. Coupon_Code <br>
+Description: Code associated with a coupon, if applicable. <br>
+Data Type: Text <br>
+21. Discount_pct <br>
+Description: Percentage of discount applied to the transaction. <br>
+Data Type: Numeric <br>
+22. Month <br>
+Description: Month of the transaction <br>
+Data Type: Categorical <br>
 
 ## Data Quality
 
