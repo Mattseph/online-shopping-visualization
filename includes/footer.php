@@ -9,14 +9,25 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <?php if ($pageTitle !== 'Prediction Charts') :?>
+
 <script>
 const chartData = './../assets/data/online-shopping-data.csv';
 </script>
 
-<script defer src="./../assets/js/main.js"></script>
-<?php else :?>
+<?php endif; ?>
+
+<?php if ($pageTitle === 'Sales Charts') :?>
+
+<script defer src="./../assets/js/sales.js"></script>
+
+<?php elseif ($pageTitle === 'Prediction Charts') :?>
+
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0"></script>
 <script defer src="./../assets/js/prediction.js"></script>
+
+<?php else: ?>
+
+<script defer src="./../assets/js/main.js"></script>
 <?php endif; ?>
 
 </body>
