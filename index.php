@@ -81,25 +81,25 @@
                 <div class="card">
                     <div>
                         <div class="numbers" id="average-offline-spend"></div>
-                        <div class="cardName">Average Customer Offline Spend Per Day</div>
+                        <div class="cardName">Average Offline Spend Per Day</div>
                     </div>
                     <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="cash-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="card">
                     <div>
                         <div class="numbers" id="average-online-spend"></div>
-                        <div class="cardName">Average Customer Online Spend Per Day</div>
+                        <div class="cardName">Average Online Spend Per Day</div>
                     </div>
                     <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="cash-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">$10,465</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers" id="total-sales"></div>
+                        <div class="cardName">Total Sales</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="cash-outline"></ion-icon>
@@ -120,11 +120,6 @@
                     <canvas id="categoryChartBar"></canvas>
                 </div>
 
-                <div class="chartBox line">
-                    <h2>Total of Transaction Every Month</h2>
-
-                    <canvas id="chartTransaction"></canvas>
-                </div>
 
                 <div class="chartBox doughnut">
                     <h2>Coupon Percentage</h2>
@@ -136,6 +131,12 @@
                     <h2>Customer Gender Percentage</h2>
 
                     <canvas id="chartPie"></canvas>
+                </div>
+
+                <div class="chartBox line">
+                    <h2>Total of Transaction Every Month</h2>
+
+                    <canvas id="chartTransaction"></canvas>
                 </div>
 
                 <div class="chartBox pie">
