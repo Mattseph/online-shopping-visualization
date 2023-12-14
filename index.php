@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="chartBox pie">
-                    <h2>Title Here</h2>
+                    <h2>Average Online Spend Behavior</h2>
 
                     <canvas id="chartScatter"></canvas>
                 </div>

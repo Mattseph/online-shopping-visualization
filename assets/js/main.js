@@ -454,16 +454,23 @@ function generatePieChart(datapoints) {
 }
 
 function generateScatterPlot(datapoints) {
-    // SCATTER PLOT - Extract the values for the scatter plot
-    const tenureMonths = datapoints.map(d => parseFloat(d.Tenure_Months));
-    const onlineShopping = datapoints.map(d => parseFloat(d.Online_Spend));
+    // Group data by tenure_month and calculate the average online_spend
+    const averageOnlineSpendPerMonth = d3.rollup(
+        datapoints,
+        v => d3.mean(v, d => parseFloat(d.Online_Spend || 0)),
+        d => parseFloat(d.Tenure_Months)
+    );
+
+    // Extract the values for the scatter plot
+    const tenureMonths = Array.from(averageOnlineSpendPerMonth.keys());
+    const averageOnlineShopping = Array.from(averageOnlineSpendPerMonth.values());
 
     // Scatter plot data
     const scatterData = {
         labels: 'Scatter Plot',
         datasets: [{
-            label: 'Customer Tenure vs Online Shopping',
-            data: tenureMonths.map((val, index) => ({ x: val, y: onlineShopping[index] })),
+            label: 'Average Online Spend',
+            data: tenureMonths.map((val, index) => ({ x: val, y: averageOnlineShopping[index] })),
             backgroundColor: '#1d3c45' // color of the data points
         }]
     };
@@ -489,20 +496,11 @@ function generateScatterPlot(datapoints) {
                     position: 'left',
                     title: {
                         display: true,
-                        text: 'Online Shopping Behavior'
+                        text: 'Average Online Spend Behavior'
                     }
                 }
             },
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                },
-                title: {
-                    display: true,
-                    text: 'Customer Tenure vs Online Shopping'
-                }
-            }
+            
         }
     };
 
@@ -512,6 +510,7 @@ function generateScatterPlot(datapoints) {
         scatterConfig
     );
 }
+
 
 
 function doughnutChartCouponPercentage (datapoints) {
