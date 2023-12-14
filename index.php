@@ -15,7 +15,7 @@
                 <li>
                     <a href="./">
                         <span class="icon">
-                            <ion-icon name="logo-apple"></ion-icon>
+                            <ion-icon name="logo-shop"></ion-icon>
                         </span>
                         <span class="title">Online Shopping</span>
                     </a>
@@ -32,7 +32,8 @@
                 <li>
                     <a href="./data-visualization/sales-chart.php">
                         <span class="icon">
-                            <ion-icon name="person-outline"></ion-icon>
+                            <ion-icon name="pie-chart-outline"></ion-icon>
+
                         </span>
                         <span class="title">Sales Chart</span>
                     </a>
@@ -41,7 +42,7 @@
                 <li>
                     <a href="./data-visualization/prediction-chart.php">
                         <span class="icon">
-                            <ion-icon name="person-outline"></ion-icon>
+                            <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
                         <span class="title">Prediction Chart</span>
                     </a>
