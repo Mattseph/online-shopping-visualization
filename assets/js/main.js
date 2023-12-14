@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
     d3.csv(chartData).then(function (datapoints) {
 
-        generateLineChart(datapoints);
         // Calculate the number of transactions per day
+        const parseDate = d3.timeParse('%B %e, %Y');
+        datapoints.forEach(d => {
+            d.Transaction_Date = parseDate(d.Transaction_Date);
+        });
+
         generateAverageTransactionsPerDay(datapoints);
+        generateAverageOfflineSpendPerDay(datapoints);
+        generateAverageOnlineSpendPerDay(datapoints);
+        generateLineChart(datapoints);
         generateBarChart(datapoints);
         generatePieChart(datapoints);
         generateScatterPlot(datapoints);
@@ -12,21 +19,85 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function generateAverageTransactionsPerDay(datapoints) {
+
+    // Group transactions by day
     const transactionsPerDay = d3.rollup(
         datapoints,
         v => v.length,
         d => d3.timeDay(d.Transaction_Date)
     );
-    
-    // Calculate the average transactions per day
-    const averageTransactionsPerDay = d3.mean(transactionsPerDay.values()) ?? '';
-    
-    // Update the content of an HTML element with the result
-    const averageTransactionsElement = document.getElementById('average-transaction');
-    if (averageTransactionsElement && averageTransactionsPerDay) {
-        averageTransactionsElement.innerText = averageTransactionsPerDay.toFixed(2);
-    }
 
+    // Extract values to calculate the average
+    const transactionCounts = Array.from(transactionsPerDay.values());
+
+    // Calculate the total number of unique days with at least one transaction
+    const daysWithTransactions = transactionCounts.filter(count => count > 0).length;
+
+    // Calculate the total number of transactions
+    const totalTransactions = d3.sum(transactionCounts);
+
+    // Calculate the average transactions per day
+    const averageTransactionsPerDay = totalTransactions / daysWithTransactions || 0;
+
+    // Update the content of an HTML element with the result (as an integer)
+    const averageTransactionsElement = document.getElementById('average-transaction');
+    if (averageTransactionsElement) {
+        averageTransactionsElement.innerText = parseInt(averageTransactionsPerDay, 10);
+    }
+}
+
+function generateAverageOfflineSpendPerDay(datapoints) {
+    // Group transactions by day and calculate the average offline spend
+    const offlineSpendPerDay = d3.rollup(
+        datapoints,
+        v => d3.mean(v, d => parseFloat(d.Offline_Spend)),
+        d => d3.timeDay(d.Transaction_Date)
+    );
+
+    // Extract values to calculate the overall average
+    const offlineSpendValues = Array.from(offlineSpendPerDay.values());
+
+    // Calculate the total number of unique days with at least one transaction
+    const daysWithTransactions = offlineSpendValues.filter(value => !isNaN(value)).length;
+
+    // Calculate the total average offline spend
+    const totalAverageOfflineSpend = d3.sum(offlineSpendValues);
+
+    // Calculate the overall average offline spend
+    const overallAverageOfflineSpend = totalAverageOfflineSpend / daysWithTransactions || 0;
+
+    // Update the content of an HTML element with the result
+    const averageOfflineSpendElement = document.getElementById('average-offline-spend');
+    if (averageOfflineSpendElement) {
+        averageOfflineSpendElement.innerText = `$${overallAverageOfflineSpend.toFixed(2)}`;
+    }
+}
+
+function generateAverageOnlineSpendPerDay(datapoints) {
+    // Group transactions by day and calculate the average online spend
+    const onlineSpendPerDay = d3.rollup(
+        datapoints,
+        v => d3.mean(v, d => parseFloat(d.Online_Spend)),
+        d => d3.timeDay(d.Transaction_Date)
+    );
+
+    // Extract values to calculate the overall average
+    const onlineSpendValues = Array.from(onlineSpendPerDay.values());
+
+    // Calculate the total number of unique days with at least one transaction
+    const daysWithTransactions = onlineSpendValues.filter(value => !isNaN(value)).length;
+
+    // Calculate the total average online spend
+    const totalAverageOnlineSpend = d3.sum(onlineSpendValues);
+
+    // Calculate the overall average online spend
+    const overallAverageOnlineSpend = totalAverageOnlineSpend / daysWithTransactions || 0;
+
+    // Update the content of an HTML element with the result
+    const averageOnlineSpendElement = document.getElementById('average-online-spend');
+    if (averageOnlineSpendElement) {
+        averageOnlineSpendElement.innerText = `$${overallAverageOnlineSpend.toFixed(2)}`;
+    }
 }
 
 function generateBarChart(datapoints) {
