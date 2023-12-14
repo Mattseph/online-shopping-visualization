@@ -208,7 +208,12 @@ function generateBarChart(datapoints) {
             aspectRatio: 1,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return '$' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Format as currency
+                        }
+                    }
                 }
             },
 
@@ -269,7 +274,12 @@ function generateBarChart(datapoints) {
             aspectRatio: 1,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return '$' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Format as currency
+                        }
+                    }
                 }
             },
 
