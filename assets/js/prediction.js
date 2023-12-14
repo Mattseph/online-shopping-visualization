@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
         await modelOnline.fit(xOnline, yOnline, { epochs: 100 });
 
         const modelOffline = tf.sequential();
+        modelOffline.add(tf.layers.dense({ inputShape: [1], units: 10, activition: 'relu' }));
+        modelOffline.add(tf.layers.dense({ inputShape: [1], units: 20 }));
+        modelOffline.add(tf.layers.dense({ inputShape: [1], units: 10 }));
         modelOffline.add(tf.layers.dense({ inputShape: [1], units: 1 }));
         modelOffline.compile({ optimizer: 'sgd', loss: 'meanSquaredError' });
 
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function main() {
         try {
             const { modelOnline, modelOffline, normalizedTenure, normalizedOnlineSpend, normalizedOfflineSpend } = await trainRegressionModel();
-            const newTenure = 24;
+            const newTenure = 12;
 
             const normalizedNewTenure = newTenure / 12;
             const normalizedNewTenureTensor = tf.tensor2d([[normalizedNewTenure]]);
