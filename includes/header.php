@@ -14,27 +14,35 @@
             <ul>
                 <li>
                     <a href="./../">
-                        <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="logo-apple"></ion-icon>
+                        </span>
                         <span class="title">Online Shopping</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="./../">
-                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="./sales-chart.php">
-                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="pie-chart-outline"></ion-icon>
+                        </span>
                         <span class="title">Sales Chart</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="./prediction-chart.php">
-                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="icon">
+                            <ion-icon name="bar-chart-outline"></ion-icon>
+                        </span>
                         <span class="title">Prediction Chart</span>
                     </a>
                 </li>
@@ -44,7 +52,9 @@
         <div class="main">
             <div class="topbar">
 
-                <div class="toggle"><ion-icon name="menu-outline"></ion-icon></div>
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
 
                 <div class="search">
                     <label for="">
