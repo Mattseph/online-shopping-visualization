@@ -13,9 +13,9 @@ Create Responsive Admin Dashboard using Html CSS &amp; Javascript | Simple Dashb
 
 ## Dataset Attributes
 
-1. ID
-Description: The unique identifier of each record in the dataset
-Data Type: Numeric
+1. ID <br>
+Description: The unique identifier of each record in the dataset <br>
+Data Type: Numeric <br>
 2. CustomerID
 Description: Unique identifier for each customer.
 Data Type: Numeric
