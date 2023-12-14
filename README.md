@@ -1,5 +1,9 @@
 # Admin-Dashboard
-Create Responsive Admin Dashboard using Html CSS &amp; Javascript | Simple Dashboard Template Design (Online Tutorials yt)
+Create Responsive Admin Dashboard using Html CSS &amp; Javascript | Simple Dashboard Template Design (Online Tutorials yt) <br>
+Libraries Used: <br>
+### 1. Chart.js - https://www.chartjs.org/
+### 2. D3.js - https://d3js.org/
+### 3. TensorFlow.js - https://www.tensorflow.org/js
 
 # Dataset Overview - Online Shopping Dataset by Jackson Divakar R.
 
