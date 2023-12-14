@@ -72,7 +72,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers" id="average-transaction"></div>
-                        <div class="cardName">Average Transaction</div>
+                        <div class="cardName">Average Transaction Per Day</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="eye-outline"></ion-icon>
@@ -80,8 +80,8 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">562</div>
-                        <div class="cardName">Sales</div>
+                        <div class="numbers" id="average-offline-spend"></div>
+                        <div class="cardName">Average Customer Offline Spend Per Day</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="cart-outline"></ion-icon>
@@ -89,11 +89,11 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">162</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers" id="average-online-spend"></div>
+                        <div class="cardName">Average Customer Online Spend Per Day</div>
                     </div>
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <ion-icon name="cart-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="card">
