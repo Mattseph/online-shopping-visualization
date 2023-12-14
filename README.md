@@ -94,9 +94,9 @@ The online shopping dataset is highly relevant to our project, where we are expe
 
 ## Required Apps/Programs for the Application
 
-1. XAMPP - https://www.apachefriends.org/download.html
-2. Code Editor (VSCode) - https://code.visualstudio.com/Download
-3. GitBash - https://git-scm.com/downloads
+### 1. XAMPP - https://www.apachefriends.org/download.html
+### 2. Code Editor (VSCode) - https://code.visualstudio.com/Download
+### 3. GitBash - https://git-scm.com/downloads
 
 ## Installation and Startup Guide
 
