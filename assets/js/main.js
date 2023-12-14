@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         generateAverageTransactionsPerDay(datapoints);
         generateAverageOfflineSpendPerDay(datapoints);
         generateAverageOnlineSpendPerDay(datapoints);
+        totalSales(datapoints)
         generateLineChart(datapoints);
         generateBarChart(datapoints);
         generatePieChart(datapoints);
@@ -100,6 +101,30 @@ function generateAverageOnlineSpendPerDay(datapoints) {
     }
 }
 
+function formatNumberWithKMB(number) {
+    if (Math.abs(number) >= 1.0e+6) {
+        return (number / 1.0e+6).toFixed(2) + "M";
+    } else if (Math.abs(number) >= 1.0e+3) {
+        return (number / 1.0e+3).toFixed(2) + "K";
+    } else {
+        return number.toFixed(2);
+    }
+}
+
+function totalSales(datapoints) {
+    // Calculate the sum of offline_spend and online_spend
+    const totalSales = d3.sum(datapoints, d => parseFloat(d.Offline_Spend || 0) + parseFloat(d.Online_Spend || 0));
+
+    // Format the total sales using K or M
+    const formattedTotalSales = formatNumberWithKMB(totalSales);
+
+    // Update the content of an HTML element with the result
+    const totalSalesElement = document.getElementById('total-sales');
+    if (totalSalesElement) {
+        totalSalesElement.innerText = `$${formattedTotalSales}`;
+    }
+}
+
 function generateBarChart(datapoints) {
     const locationTotals = {};
     const categoryTotals = {};
@@ -185,6 +210,26 @@ function generateBarChart(datapoints) {
                 y: {
                     beginAtZero: true
                 }
+            },
+
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let label = context.dataset.label || '';
+    
+                            if (label) {
+                                label += ': $';
+                            }
+    
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Format as currency
+                            }
+    
+                            return label;
+                        }
+                    }
+                }
             }
         }
     };
@@ -225,6 +270,26 @@ function generateBarChart(datapoints) {
             scales: {
                 y: {
                     beginAtZero: true
+                }
+            },
+
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let label = context.dataset.label || '';
+    
+                            if (label) {
+                                label += ': $';
+                            }
+    
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Format as currency
+                            }
+    
+                            return label;
+                        }
+                    }
                 }
             }
         }
@@ -372,12 +437,15 @@ function generatePieChart(datapoints) {
                         });
                         const currentValue = dataset.data[tooltipItem.index];
                         const genderInfo = genderData[tooltipItem.index];
-                        return `${genderLabels[tooltipItem.index]}: ${genderInfo.count} (${genderInfo.percentage}%)`;
+                        const percentage = ((currentValue / total) * 100).toFixed(2);
+                        percentage += '%'; // Calculate percentage with 2 decimal places
+                        return `${genderLabels[tooltipItem.index]}: ${genderInfo.count} (${percentage})`;
                     }
                 }
             }
         }
     };
+    
 
     const chartPie = new Chart(
         document.getElementById('chartPie'),
