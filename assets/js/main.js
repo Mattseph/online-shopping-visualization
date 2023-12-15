@@ -1,21 +1,38 @@
-// Wait for the window to fully load
-window.addEventListener('load', function () {
-    // Check if the chartData variable is defined (you might need to adjust this condition)
-    if (typeof chartData !== 'undefined') {
-        // Load data and generate charts
-        d3.csv(chartData).then(function (datapoints) {
-            // Your existing chart generation code here
-            generateAverageTransactionsPerDay(datapoints);
-            generateAverageOfflineSpendPerDay(datapoints);
-            generateAverageOnlineSpendPerDay(datapoints);
-            totalSales(datapoints);
-            generateScatterPlot(datapoints);
-            generatePieChart(datapoints);
-            doughnutChartCouponPercentage(datapoints);
-            generateLineChart(datapoints);
-        });
+
+function handleFile() {
+    const fileInput = document.getElementById('fileInput');
+    const dashboardContainer = document.querySelector('.dashboard-container');
+
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const loadedData = e.target.result;
+
+            document.querySelector('.upload-container').style.display = 'none';
+            dashboardContainer.style.display = 'block';
+
+            if (typeof loadedData !== 'undefined') {
+                d3.csv(loadedData).then(function (datapoints) {
+                    generateAverageTransactionsPerDay(datapoints);
+                    generateAverageOfflineSpendPerDay(datapoints);
+                    generateAverageOnlineSpendPerDay(datapoints);
+                    totalSales(datapoints);
+                    generateScatterPlot(datapoints);
+                    generatePieChart(datapoints);
+                    doughnutChartCouponPercentage(datapoints);
+                    generateLineChart(datapoints);
+                });
+            }
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please select a file.');
     }
-});
+}
+
 
 function generateAverageTransactionsPerDay(datapoints) {
     // Use d3.timeParse to parse the date strings
@@ -32,7 +49,7 @@ function generateAverageTransactionsPerDay(datapoints) {
     const transactionCounts = Array.from(transactionsPerDay.values());
 
     // Calculate the total number of unique days with at least one transaction
-    const daysWithTransactions = transactionCounts.filter(count => count > 0).length;
+    const daysWithTransactions = transactionCounts.filter(count => count > 0).length ?? 0;
 
     // Calculate the total number of transactions
     const totalTransactions = d3.sum(transactionCounts);
@@ -43,7 +60,7 @@ function generateAverageTransactionsPerDay(datapoints) {
     // Update the content of an HTML element with the result (as an integer)
     const averageTransactionsElement = document.getElementById('average-transaction');
     if (averageTransactionsElement) {
-        averageTransactionsElement.innerText = parseInt(averageTransactionsPerDay, 10);
+        averageTransactionsElement.innerText = parseInt(averageTransactionsPerDay, 10) ?? '';
     }
 }
 
@@ -291,6 +308,19 @@ function generateScatterPlot(datapoints) {
     );
 }
 
+ // Function to handle navigation clicks
+ function handleNavigationClick(url) {
+    // Prevent the default behavior of the anchor tag (e.g., navigating to a new page)
+    event.preventDefault();
+
+    // Assuming you have a function to process the data on the other page
+    processDataOnOtherPage();
+    
+    // Here, you can add logic to handle the navigation click
+    // For example, you can load a new page using AJAX or update the content dynamically
+    console.log('Navigating to:', url);
+}
+
 
 
 function doughnutChartCouponPercentage (datapoints) {
@@ -362,3 +392,25 @@ function activeLink(){
 }
 list.forEach((item) =>
 item.addEventListener("mouseover",activeLink));
+
+const dropContainer = document.getElementById("dropcontainer")
+  const fileInput = document.getElementById("fileInput")
+
+  dropContainer.addEventListener("dragover", (e) => {
+    // prevent default to allow drop
+    e.preventDefault()
+  }, false)
+
+  dropContainer.addEventListener("dragenter", () => {
+    dropContainer.classList.add("drag-active")
+  })
+
+  dropContainer.addEventListener("dragleave", () => {
+    dropContainer.classList.remove("drag-active")
+  })
+
+  dropContainer.addEventListener("drop", (e) => {
+    e.preventDefault()
+    dropContainer.classList.remove("drag-active")
+    fileInput.files = e.dataTransfer.files
+  })
