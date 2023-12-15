@@ -116,3 +116,6 @@ The online shopping dataset is highly relevant to our project, where we are expe
 6. Start Apache in XAMPP <br>
 7. Access the application through this link: <br>
 ### http://localhost/online-shopping-visualization/ <br>
+8. After accessing the system, load the csv file:
+### online-shopping-data.csv
+9. After loading the dataset, the system will display information regarding the csv file.
