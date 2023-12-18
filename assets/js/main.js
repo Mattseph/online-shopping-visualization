@@ -1,37 +1,177 @@
-
-function handleFile() {
+document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.getElementById('fileInput');
-    const dashboardContainer = document.querySelector('.dashboard-container');
+    const uploadButton = document.getElementById('uploadButton');
+    const reUploadButton = document.getElementById('reUploadButton');
 
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const reader = new FileReader();
+    let db;
 
-        reader.onload = function (e) {
-            const loadedData = e.target.result;
+    // Open (or create) the database
+    const openRequest = indexedDB.open('datasetDB', 1);
 
-            document.querySelector('.upload-container').style.display = 'none';
-            dashboardContainer.style.display = 'block';
+    openRequest.onerror = function (event) {
+        console.error('Error opening IndexedDB:', event);
+    };
 
-            if (typeof loadedData !== 'undefined') {
-                d3.csv(loadedData).then(function (datapoints) {
-                    generateAverageTransactionsPerDay(datapoints);
-                    generateAverageOfflineSpendPerDay(datapoints);
-                    generateAverageOnlineSpendPerDay(datapoints);
-                    totalSales(datapoints);
-                    generateScatterPlot(datapoints);
-                    generatePieChart(datapoints);
-                    doughnutChartCouponPercentage(datapoints);
-                    generateLineChart(datapoints);
-                });
+    openRequest.onupgradeneeded = function (event) {
+        // Create the object store if it doesn't exist
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains('datasetStore')) {
+            db.createObjectStore('datasetStore', { keyPath: 'id' });
+        }
+    };
+
+    openRequest.onsuccess = function (event) {
+        db = event.target.result;
+
+        // Check for an existing dataset in IndexedDB
+        const transaction = db.transaction('datasetStore', 'readonly');
+        const objectStore = transaction.objectStore('datasetStore');
+        const getRequest = objectStore.get(1);
+
+        getRequest.onsuccess = function () {
+            const dataset = getRequest.result;
+
+            if (dataset && dataset.filePath) {
+                // Dataset found, hide upload container and show dashboard container
+                if (document.querySelector('.upload-container')) {
+                    document.querySelector('.upload-container').style.display = 'none';
+                }
+                if (document.querySelector('.dashboard-container')) {
+                    document.querySelector('.dashboard-container').style.display = 'block';
+                }
+
+                // Load the data from the server and generate charts
+                fetch(dataset.filePath)
+                    .then(response => response.text())
+                    .then(loadedData => {
+                        const datapoints = d3.csvParse(loadedData);
+                        console.log(datapoints);
+                        generateCharts(datapoints);
+                    });
+            } else {
+                // Dataset not found, show upload container
+                if (document.querySelector('.upload-container')) {
+                    document.querySelector('.upload-container').removeAttribute("style");
+                }
+                if (document.querySelector('.dashboard-container')) {
+                    document.querySelector('.dashboard-container').style.display = 'none';
+                }
             }
         };
 
-        reader.readAsDataURL(file);
-    } else {
-        alert('Please select a file.');
+        transaction.oncomplete = function () {
+            // Close the transaction
+            // db.close(); // Commenting out this line
+        };
+    };
+
+    if (uploadButton) {
+        uploadButton.addEventListener('click', handleFile);
     }
-}
+
+    reUploadButton.addEventListener('click', reUploadFile);
+
+    function handleFile() {
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // Make an AJAX request to the PHP script
+            fetch('server/server.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide the upload container and show the dashboard container
+                if (document.querySelector('.upload-container')) {
+                    document.querySelector('.upload-container').style.display = 'none';
+                }
+                if (document.querySelector('.dashboard-container')) {
+                    document.querySelector('.dashboard-container').style.display = 'block';
+                }
+
+                // Store the dataset path in IndexedDB
+                const storeTransaction = db.transaction('datasetStore', 'readwrite');
+                const storeObjectStore = storeTransaction.objectStore('datasetStore');
+                storeObjectStore.put({ id: 1, filePath: data.filePath });
+
+                // Load the data from the server and generate charts
+                fetch(data.filePath)
+                    .then(response => response.text())
+                    .then(loadedData => {
+                        const datapoints = d3.csvParse(loadedData);
+                        console.log(datapoints);
+                        generateCharts(datapoints);
+                    });
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error);
+                alert('Error uploading file. Please try again.');
+            });
+        } else {
+            alert('Please select a file.');
+        }
+    }
+
+    function reUploadFile() {
+        // Show the upload container and hide the dashboard container
+        if (document.querySelector('.upload-container')) {
+            document.querySelector('.upload-container').removeAttribute("style");
+        }
+        if (document.querySelector('.dashboard-container')) {
+            document.querySelector('.dashboard-container').style.display = 'none';
+        }
+    
+        // Delete the dataset from indexedDB
+        const deleteTransaction = db.transaction('datasetStore', 'readwrite');
+        const deleteObjectStore = deleteTransaction.objectStore('datasetStore');
+        const getRequest = deleteObjectStore.get(1);
+    
+        getRequest.onsuccess = function () {
+            const dataset = getRequest.result;
+    
+            if (dataset && dataset.filePath) {
+                // Make a DELETE request to delete the file on the server
+                fetch('server/server.php', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ filePath: dataset.filePath }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('File deleted successfully.');
+                    } else {
+                        console.error('Error deleting file:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting file:', error);
+                });
+            }
+        };
+    
+        // Clear IndexedDB and reset UI as needed
+        deleteObjectStore.clear();
+
+    }
+
+    function generateCharts(datapoints) {
+        // Your existing function to generate charts
+        generateAverageTransactionsPerDay(datapoints);
+        generateAverageOfflineSpendPerDay(datapoints);
+        generateAverageOnlineSpendPerDay(datapoints);
+        totalSales(datapoints);
+        generateScatterPlot(datapoints);
+        generatePieChart(datapoints);
+        doughnutChartCouponPercentage(datapoints);
+        generateLineChart(datapoints);
+    }
+});
+
 
 
 function generateAverageTransactionsPerDay(datapoints) {

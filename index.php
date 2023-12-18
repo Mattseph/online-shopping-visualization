@@ -16,10 +16,9 @@
                 <span class="drop-title">Drop files here</span>
                 or
                 <input type="file" id="fileInput" accept=".csv" required>
-                <button class="button" onclick="handleFile()">
+                <button class="button" id="uploadButton">
                     <svg class="svgIcon" viewBox="0 0 384 512">
-                        <path
-                            d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
+                        <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
                         </path>
                     </svg>
                 </button>
@@ -65,6 +64,15 @@
                                 <ion-icon name="bar-chart-outline"></ion-icon>
                             </span>
                             <span class="title">Prediction Chart</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" id="reUploadButton">
+                            <span class="icon">
+                                <ion-icon name="cloud-upload-outline"></ion-icon>
+                            </span>
+                            <span class="title">Re-Uplaod Dataset</span>
                         </a>
                     </li>
                 </ul>
@@ -166,32 +174,10 @@
     </script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
-        integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script defer src="./assets/js/main.js"></script>
-    <!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const storedChartData = sessionStorage.getItem('chartData');
-        if (storedChartData) {
-            document.querySelector('.upload-container').style.display = 'none';
-            document.querySelector('.dashboard-container').style.display = 'block';
-
-            d3.csv(storedChartData).then(function(datapoints) {
-                generateAverageTransactionsPerDay(datapoints);
-                generateAverageOfflineSpendPerDay(datapoints);
-                generateAverageOnlineSpendPerDay(datapoints);
-                totalSales(datapoints);
-                generateScatterPlot(datapoints);
-                generatePieChart(datapoints);
-                doughnutChartCouponPercentage(datapoints);
-                generateLineChart(datapoints);
-            });
-        }
-    });
-    </script> -->
 
 </body>
 
