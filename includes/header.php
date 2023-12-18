@@ -46,6 +46,15 @@
                         <span class="title">Prediction Chart</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="#" id="reUploadButton">
+                        <span class="icon">
+                            <ion-icon name="cloud-upload-outline"></ion-icon>
+                        </span>
+                        <span class="title">Re-Uplaod Dataset</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
